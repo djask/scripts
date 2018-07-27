@@ -1,5 +1,6 @@
 #!/bin/bash
 #this script removes storage based on name-label
+#intended for use on citrix xenserver/xcp-ng servers
 #usage ./xe_rm_storage.sh [label]
 
 temp=$(xe sr-list name-label="$1" | grep uuid)
