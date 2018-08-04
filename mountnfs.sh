@@ -10,6 +10,9 @@ showmount -e $1 | awk '{if(NR>1)print}' | sed "s/\*//g" | while read -r export ;
         if [ ! -d "$mountdir" ]; then
                 mkdir -p "$mountdir"
         fi
-	echo "mounting $1:$export at $mountdir"
-	sudo mount -v -t nfs -o proto=tcp,port=2049,async,rw,vers=4.0 "$1:$export" "$mountdir"
+	echo "mount $1:$export at $mountdir? (y/n) "
+	read choice	
+	if [ $choice == 'y' ]; then
+		sudo mount -v -t nfs -o proto=tcp,port=2049,async,rw,vers=4.0 "$1:$export" "$mountdir"
+	fi
 done
