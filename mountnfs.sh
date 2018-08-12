@@ -11,11 +11,11 @@ if [ -z "$2" ]; then
 	basepath="/export"
 fi
 
-showmount -e $1 | awk '{if(NR>1)print}' | sed "s/\*//g" | while read -r export ; do
+showmount -e $1 | awk '{if(NR>1)print}' | sed 's/\s.*$//' | while read -r export ; do
 	mountdir="$basepath/$(echo $1$export | sed -e 's/\//_/g')"
         if [ ! -d "$mountdir" ]; then
-                mkdir -p "$mountdir"
+                sudo mkdir -p "$mountdir"
         fi
 	echo "mount $1:$export at $mountdir"
-	sudo mount -v -t nfs -o proto=tcp,port=2049,async,rw,vers=4.0 "$1:$export" "$mountdir"
+	sudo mount -v -t nfs -o proto=tcp,port=2049,async,rw,vers=4.1 "$1:$export" "$mountdir"
 done
