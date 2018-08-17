@@ -12,13 +12,13 @@ fi
 
 basepath=$2
 if [ -z "$2" ]; then
-	echo "using default /export"
-	basepath="/export"
+	echo "using default /import"
+	basepath="/import"
 fi
 
-for export in `showmount -e $1 | awk '{if(NR>1)print}' | sed 's/\s.*$//'`; do
-	mountdir="$basepath/$(echo $1$export | sed -e 's/\//_/g')"
-	printf "mount $1:$export at $mountdir?: "
+for import in `showmount -e $1 | awk '{if(NR>1)print}' | sed 's/\s.*$//'`; do
+	mountdir="$basepath/$(echo $1$import | sed -e 's/\//_/g')"
+	printf "mount $1:$import at $mountdir?: "
 	read response
 	if ! [[ "$response" =~ ^([yY][eE][sS]|[yY])+$ ]]; then
 		continue
@@ -26,6 +26,6 @@ for export in `showmount -e $1 | awk '{if(NR>1)print}' | sed 's/\s.*$//'`; do
         if [ ! -d "$mountdir" ]; then
         	mkdir -p "$mountdir"
         fi
-	mount -v -t nfs -o proto=tcp,port=2049,async,rw,vers=4.1 "$1:$export" "$mountdir"
+	mount -v -t nfs -o rw,bg,hard,nointr,rsize=1048576,wsize=1048576,tcp,timeo=10 "$1:$import" "$mountdir"
 	echo "mount success"
 done
