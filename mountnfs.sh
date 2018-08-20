@@ -26,6 +26,6 @@ for import in `showmount -e $1 | awk '{if(NR>1)print}' | sed 's/\s.*$//'`; do
         if [ ! -d "$mountdir" ]; then
         	mkdir -p "$mountdir"
         fi
-	mount -v -t nfs -o rw,bg,hard,nointr,rsize=1048576,wsize=1048576,tcp,timeo=10 "$1:$import" "$mountdir"
+	mount -v -t nfs -o rw,bg,hard,nointr,user,noauto,rsize=1048576,wsize=1048576,tcp,timeo=10 "$1:$import" "$mountdir"
 	echo "mount success"
 done
