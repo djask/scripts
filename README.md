@@ -19,6 +19,10 @@ Scripts repository to organise various bash (and maybe powershell) scripts.
 `fuser -k filename`
 
 
+## xecli commands
+**local iso repository storage**  
+`xe sr-create name-label=LocalISO type=iso device-config:location=LOCATION device-config:legacy_mode=true content-type=iso`  
+
 **//todo**  
 powershell and batch for MSYS2  
 vm backup script, xenserver  
