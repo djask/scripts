@@ -25,9 +25,9 @@ Get-ChildItem -Path $OSUDIR -Directory | foreach {
 	# grab the first mp3 file over 1mb. we assume this is the osz audio track 
 	Get-ChildItem -LiteralPath $_.FullName *.mp3 | where-object {$_.length -gt 1mb} | Select-Object -First 1 {
 		if([System.IO.File]::Exists("$CPDIR\$filename.mp3")){
-			echo "file $filename.mp3 exists, skipping..."
+			echo "DEBUG file $filename.mp3 exists, skipping..."
 		} else {
-			echo "DEBUG Copy-Item $fullpath -Destination $CPDIR\$filename.mp3"
+			echo "DEBUG Copying $filename"
 			Copy-Item -LiteralPath $_.FullName -Destination "$CPDIR\$filename.mp3"
 		}
 	}
