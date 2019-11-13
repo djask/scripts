@@ -1,0 +1,15 @@
+#cloud-config
+package_upgrade: true
+users:
+  - name: ubuntu
+    groups: wheel
+    sudo: ALL=(ALL) NOPASSWD:ALL
+    lock_passwd: false
+    passwd: $1$DnUsMD4w$ATB1ZUd2G7Xy2JrfbULQO0
+    shell: /bin/bash
+network:
+  ethernets:
+    ens3:
+      addresses: []
+      dhcp4: true
+
