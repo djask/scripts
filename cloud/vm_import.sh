@@ -8,7 +8,7 @@ fi
 
 #check number of arguments
 if (( $# < 2 )) ; then
-	echo "usage script [vm_name] [iso file]"
+	echo "usage script [vm_name] [qcow image]"
 	return	
 fi
 
@@ -17,9 +17,11 @@ echo $resFile
 
 
 #detect if ISO install or qcow import
-echo 'TASK: Creating Image...'
-qemu-img create -f qcow2 $resFile $DISK_SIZE
-ISO=1
+echo 'TASK: Checking Image...'
+if [ ! -f "$resfile" ]; then
+	echo "No such qcow, please create first"
+	exit 1
+fi
 
 echo 'RAM SIZE (KB): '
 read ram_size
@@ -38,4 +40,4 @@ virt-install \
 --graphics=vnc,listen=0.0.0.0,password='123Cisco123' \
 --check all=off \
 --disk $resFile,format=qcow2,bus=virtio \
---disk $2,device=cdrom,bus=ide,target=hda
+--import
