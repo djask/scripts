@@ -1,10 +1,7 @@
 # Scripts
-Scripts repository to organise various bash (and maybe powershell) scripts.
 
 **linux_utils**: general purpose scripts for linux, works on mostly any linux system  
 **xenserver_utils**: scripts designed for the xenapi command line interface
-
-# some useful one-liners
   
 **change hostname (run once, 18.04)**  
 `sudo sed -i '/preserve_hostname: false/c\preserve_hostname: true' /etc/cloud/cloud.cfg && sudo hostnamectl set-hostname HOSTNAMEHERE`
