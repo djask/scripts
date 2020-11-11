@@ -1,4 +1,4 @@
-DISK_DIR='/zfs02/vms'
+DISK_DIR='/vms'
 DISK_SIZE='32G'
 
 if [[ $EUID -ne 0 ]]; then
@@ -35,7 +35,7 @@ virt-install \
 --ram $ram_size \
 --vcpus $cpus \
 --network bridge=wan_uplink,virtualport_type=openvswitch \
---graphics=vnc,listen=0.0.0.0,password='123Cisco123' \
+--graphics=vnc,listen=0.0.0.0,password='labpassword' \
 --check all=off \
 --disk $resFile,format=qcow2,bus=virtio \
 --disk $2,device=cdrom,bus=ide,target=hda
