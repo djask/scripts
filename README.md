@@ -1,20 +1,16 @@
 # Scripts
 
-**linux_utils**: general purpose scripts for linux, works on mostly any linux system  
-**xenserver_utils**: scripts designed for the xenapi command line interface
+**cloud**
+mostly scripts for cloud init images for use with libvirt. 
+removes and overwrites existing vms
+fast init for most cloud images with default yaml config in bash script
+clones the cloud disk and sets default login credentials as needed
+
+
+**linux**: general purpose scripts for linux, works on mostly any linux system  
+**xen**: scripts designed for the xenapi command line interface
+**misc**: scripts without category for random purposes
   
-**change hostname (run once, 18.04)**  
-`sudo sed -i '/preserve_hostname: false/c\preserve_hostname: true' /etc/cloud/cloud.cfg && sudo hostnamectl set-hostname HOSTNAMEHERE`
-
-**mount a ramdisk(replace 1024 with disk size)**  
-`mount -t tmpfs tmpfs /mnt -o size=1024m`
-
-**close shell, keep all subprocesses running**  
-`disown -a && exit`
-
-**kill process using a file**  
-`fuser -k filename`
-
 
 ## xecli commands
 **local iso repository storage**  
@@ -22,4 +18,3 @@
 
 **//todo**  
 powershell and batch for MSYS2  
-vm backup script, xenserver  
