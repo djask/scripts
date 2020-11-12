@@ -1,5 +1,6 @@
-VM_NAME=fedora-01
+VM_NAME=ubuntu-01
 VM_DIR=/vms
+CLOUD_IMG=/home/admin/focal-server-cloudimg-amd64.img
 
 if [ -e $VM_DIR/$VM_NAME.qcow2 ]; then
 	printf "Overwrite existing $VM_NAME? [Y/N]"
@@ -13,13 +14,14 @@ if [ -e $VM_DIR/$VM_NAME.qcow2 ]; then
 fi
 
 #copy the drive
-cp /home/admin/iso/Fedora-Cloud-Base-33-1.2.x86_64.qcow2 $VM_DIR/$VM_NAME.qcow2
+qemu-img info $CLOUD_IMG
+cp $CLOUD_IMG $VM_DIR/$VM_NAME.qcow2
 qemu-img resize $VM_DIR/$VM_NAME.qcow2 20G
 
 #gen cloud init file
 cat > meta-data << EOF
-instance-id: fedora-01
-local-hostname: fedora-01
+instance-id: $VM_NAME
+local-hostname: $VM_NAME
 EOF
 
 cat > user-data << EOF
@@ -45,7 +47,7 @@ mv tmp.iso $VM_DIR/
 sudo virt-install \
 --connect qemu:///system \
 --virt-type kvm \
---name fedora-01 \
+--name $VM_NAME \
 --ram 8192 \
 --vcpus 8 \
 --network bridge=ext-br \
